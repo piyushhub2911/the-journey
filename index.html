@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Journey of Us</title>
+    <title>For My Forever - Kalash</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Montserrat:wght@300;400&family=Great+Vibes&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -53,10 +53,9 @@
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4rem;
+            font-size: 3.5rem;
             margin: 0;
             color: var(--deep-rose);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         .container {
@@ -74,7 +73,7 @@
             border-radius: 4px;
             position: relative;
             cursor: pointer;
-            transition: all 0.5s ease;
+            transition: all 0.4s ease;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
@@ -84,7 +83,7 @@
         }
 
         .envelope:hover {
-            transform: scale(1.05) rotate(1deg);
+            transform: translateY(-5px);
         }
 
         .wax-seal {
@@ -98,55 +97,62 @@
         }
 
         .envelope.locked {
-            filter: grayscale(0.5) brightness(0.9);
+            filter: grayscale(0.8);
+            opacity: 0.7;
             cursor: not-allowed;
         }
 
-        /* Modal Overlay */
         #overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(76, 5, 25, 0.6);
+            background: rgba(76, 5, 25, 0.7);
             backdrop-filter: blur(8px);
             z-index: 100;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .letter-modal {
             background-color: var(--parchment);
-            width: 90%;
+            width: 100%;
             max-width: 550px;
-            min-height: 400px;
-            padding: 0;
-            border-radius: 8px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            max-height: 85vh; /* Prevents modal from going off-screen */
+            border-radius: 12px;
             position: relative;
             background-size: cover;
             background-position: center;
-            overflow: hidden;
+            overflow: hidden; /* Keeps the container clean */
             display: flex;
             flex-direction: column;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
         .modal-inner-overlay {
-            background: rgba(255, 250, 240, 0.85); /* Semi-transparent sheet over the photo */
-            padding: 40px;
+            background: rgba(255, 250, 240, 0.9);
+            padding: 30px;
+            overflow-y: auto; /* THIS MAKES IT SCROLLABLE */
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            display: block; /* Standard block for scrolling content */
         }
 
         .letter-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             line-height: 1.6;
             text-align: left;
             color: #2d3748;
-            width: 100%;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+
+        .modal-header {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: var(--deep-rose);
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         input {
@@ -155,7 +161,8 @@
             background: transparent;
             padding: 10px;
             font-size: 1.1rem;
-            width: 80%;
+            width: 100%;
+            box-sizing: border-box;
             text-align: center;
             outline: none;
             margin: 20px 0;
@@ -165,18 +172,26 @@
             background: var(--deep-rose);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 12px 40px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            display: block;
+            margin: 0 auto;
         }
 
         .close-x {
             position: absolute;
-            top: 15px; right: 20px;
-            font-size: 1.5rem;
+            top: 10px; right: 15px;
+            font-size: 1.8rem;
             cursor: pointer;
             z-index: 110;
+            color: var(--deep-rose);
+            background: white;
+            width: 35px; height: 35px;
+            border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -185,8 +200,8 @@
     <div class="hearts-bg" id="hearts-bg"></div>
 
     <header>
-        <h1>For My Dearest</h1>
-        <p style="opacity: 0.7; letter-spacing: 2px;">6 DAYS OF MEMORIES</p>
+        <h1>For My Kalash</h1>
+        <p style="opacity: 0.7; letter-spacing: 2px;">6 DAYS TO OUR FOREVER</p>
     </header>
 
     <div class="container" id="grid"></div>
@@ -199,7 +214,7 @@
     </div>
 
     <script>
-        const letters = [
+          const letters = [
             { id: 1, date: '2025-12-20', label: 'Dec 20', q: "For Vinoti you are her?", a: "hero", msg: "Date: 18-11-2024.\n\nHi,\nI know you were missing my letters so I decided to write to you a compilation of one.\n\n Hiiiiiiiiiiiiiiiiii, Kalash, by the time you receive this, you will be my 'Pati Permashwar'.\n\nWelcome all together to a new side of life, but this is a long journey from today 13 months 30 days of you saying 'yes' to my idea of us getting married to actually getting married. Sooo Cool !! Let's call this day one. Day one of me feeling excited to get married to you, to start a new life and to feel grateful to have you in my life. You're amazing and I feel really happy and blessed to have you in my life.\n\n-Love, Vinoti",imageUrl: "https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?auto=format&fit=crop&q=80&w=800" },
             { id: 2, date: '2025-12-21', label: 'Dec 21', q: "What is Vinoti's comfort food to cook for herself on a lazy day?", a: "maggie", msg: `Hi!
 I know not very punctual but "Ishq vishq pyar vyar sit time kahan hi milta Hai!". I am too busy you see. So, if you remember a couple of days ago we went on a lunch date to Grand mamas cafe and I asked you "what it takes you to me?" in the past and now is well so consider this as my answer so अर्ज़ किया है....आरे आरे वाह वाह थो फरमाये जनाब...
@@ -257,9 +272,10 @@ Vinoti.` },
 
         ];
 
+
         function createHearts() {
             const bg = document.getElementById('hearts-bg');
-            for(let i=0; i<20; i++) {
+            for(let i=0; i<25; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'heart';
                 heart.innerHTML = '❤️';
@@ -290,17 +306,15 @@ Vinoti.` },
         function openEnvelope(id) {
             const item = letters.find(l => l.id === id);
             const today = new Date().toISOString().split('T')[0];
-
             if (today < item.date) {
-                alert("This one isn't ready for your eyes yet! Wait until " + item.label);
+                alert("This letter is being prepared with love. Please wait until " + item.label + "!");
                 return;
             }
-
             document.getElementById('modal').style.backgroundImage = 'none';
             document.getElementById('modal-content').innerHTML = `
-                <h2 style="font-family:'Great Vibes'; font-size:2rem; color:var(--deep-rose)">Unlock This Day</h2>
-                <p>${item.q}</p>
-                <input type="text" id="ans" placeholder="Answer here...">
+                <div class="modal-header">For My Love</div>
+                <p style="text-align:center">${item.q}</p>
+                <input type="text" id="ans" placeholder="Type answer here..." autocomplete="off">
                 <button class="btn" onclick="checkAns(${id})">Unlock Letter</button>
             `;
             document.getElementById('overlay').style.display = 'flex';
@@ -309,26 +323,18 @@ Vinoti.` },
         function checkAns(id) {
             const item = letters.find(l => l.id === id);
             const val = document.getElementById('ans').value.toLowerCase().trim();
-            
             if(val === item.a) {
                 const modal = document.getElementById('modal');
                 modal.style.backgroundImage = `url('${item.imageUrl}')`;
                 document.getElementById('modal-content').innerHTML = `
-                    <div class="letter-text">
-                        <p style="font-family:'Great Vibes'; font-size:2.5rem; color:var(--deep-rose); margin:0;">Dearest,</p>
-                        ${item.msg}
-                        <p style="text-align:right; font-family:'Great Vibes'; font-size:1.8rem;">Love, Always</p>
-                    </div>
+                    <div class="modal-header">My Dearest Kalash,</div>
+                    <div class="letter-text">${item.msg}</div>
+                    <div style="height:20px;"></div>
                 `;
-            } else {
-                alert("Wrong answer! Remember our memories...");
-            }
+            } else { alert("Try again, my love! Think of our special moments."); }
         }
 
-        function closeModal() {
-            document.getElementById('overlay').style.display = 'none';
-        }
-
+        function closeModal() { document.getElementById('overlay').style.display = 'none'; }
         init();
     </script>
 </body>
